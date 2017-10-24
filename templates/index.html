@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Retirement Plan App</title>	
+
+    <link     href='http://fonts.googleapis.com/css?family=Sintony:400,700'     rel='stylesheet' type='text/css'>
+<!--
+    <style type="text/css">    
+      body
+      {
+        background-color:#257;
+      }
+
+      h1
+      {
+        font-size:48px;
+        margin-top:0;
+        font-family:Arial, sans-serif;
+        text-shadow:2px 0 15px #292929;
+        letter-spacing:4px;
+        text-decoration:none;
+        color:#DDD;
+      }
+
+      #banner
+      {
+        width:500px;
+        height:200px;
+        text-align:center;
+        background-image: <img src = "/static/img/2.jpg"> <!--url(http://i.imgur.com/MQHYB.jpg);--
+        background-repeat:no-repeat;
+        border-radius:5px;
+        margin:90px auto auto;
+        padding:80px 0;
+      }
+
+      .lead
+      {
+        background-color:rgba(255,255,255,0.6);
+        border-radius:3px;
+        box-shadow:rgba(0,0,0,0.2) 0 1px 3px;
+        font-family:Sintony, sans-serif;
+      }
+    </style>
+-->
+  </head>  
+
+  <body>
+	
+    <div id="banner">
+      <h1>Retirement Planning App</h1>
+      <p class="lead">We will just ask a few simple questions for your retirement planning. No private information will be recorded.</p>
+      <form action = '/plan' method = 'post'>
+		  Get retirement plan for:
+		  <br>
+		  <input type="radio" name = 'style', value="personal" >One person</input>
+		  <br><br>
+		  <input type="radio" name = 'style', value="couple", checked>Couple</input>
+		  <br><br>
+		  <input type="submit" value="Get Info"></input>
+	  </form>
+	  
+    </div>
+	<div class="row marketing">
+            <div class="col-lg-6">
+                <h4>TIPS</h4>
+                <p>Treasury inflation protected securities (TIPS) refer to a treasury security that is indexed to inflation in order to protect investors from the negative effects of inflation.</p>
+ 
+                <h4>Annuity</h4>
+                <p>Annuity is a fixed sum of money paid to someone each year, typically for the rest of their life..</p>
+ 
+                <h4>Gender</h4>
+                <p>Due to different mortality expectation, male and female have moderately different price on annuity.</p>
+            </div>
+        </div>
+	<img style = 'position: relative' src = "/static/img/3.jpg">
+        <footer class="footer">
+            <p>&copy; Rutter Associates LLC 2017</p>
+        </footer>
+		
+    <div id="emailform">
+
+    </div>
+
+  </body>
+</html>

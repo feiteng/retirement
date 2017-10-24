@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Retirement Plan App</title>	
+
+    <link     href='http://fonts.googleapis.com/css?family=Sintony:400,700'     rel='stylesheet' type='text/css'>
+
+  </head>  
+
+  <body>
+	
+    <div id="banner">
+      <h1>Retirement Planning App - one person</h1>
+      <p class="lead">A few simple information is required for your retirement planning. No private information will be recorded.</p>
+	  <form action="/personal" method="post">
+		  Your Planned Retirement age:
+		  <br>
+		  <input type="text" name="age", value = '65'></input>
+		  <br><br>
+		  Your Gender: 
+		  <br>
+		  <input type="radio" name = 'gender', value="male" >Male</input>
+		  <br><br>
+		  <input type="radio" name = 'gender', value="female", checked>Female</input>
+		  <br><br>
+		  Your current investment worth:
+		  <br>
+		  <input type="text" name="curr_amount", value = '1000000'> </input>
+		  <br><br>
+		  Expected spending amount each year after retirement:
+		  <br>
+		  <input type="text" name="spending", value = '50000'> </input>
+		  <br><br>
+		  <input type="submit" value="Get Result"></input>
+      </form>
+    </div>
+	
+	<img style = 'position: relative' src = "/static/img/3.jpg">
+        <footer class="footer">
+            <p>&copy; Rutter Associates LLC 2017</p>
+        </footer>
+		
+    <div id="emailform">
+
+    </div>
+
+  </body>
+</html>

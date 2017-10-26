@@ -20,11 +20,12 @@ def plan():
 
 @app.route('/personal', methods=['POST'])
 def signUpSingle():
-    age = request.form['age1']
-    gender = request.form['gender1']
+    age = request.form['age']
+    gender = request.form['gender']
     amount = request.form['curr_amount']
     spending = request.form['spending']
-    return render_template('calc.html', age=age, gender=gender, amount=amount, spending=spending)
+    calc( age=age, gender=gender, amount=amount, spending=spending)
+    # return render_template('calc.html', age=age, gender=gender, amount=amount, spending=spending)
 
 
 @app.route('/couple', methods=['POST'])
@@ -40,16 +41,16 @@ def signUpCouple():
     return render_template('calc2.html', age=age, gender=gender, amount=amount, spending=spending)
 
 
-def calc():
-    Tips_5 = -0.0003
-    Tips_7 = 0.0024
-    Tips_10 = 0.0035
-    Tips_20 = 0.0069
-    Tips_30 = 0.0072
+def calc(age, gender, amount, spending):
+    # Tips_5 = -0.0003
+    # Tips_7 = 0.0024
+    # Tips_10 = 0.0035
+    # Tips_20 = 0.0069
+    # Tips_30 = 0.0072
 
     # In[3]:
 
-    Tips_yield_h15 = [Tips_5, Tips_7, Tips_10, Tips_20, Tips_30]
+    Tips_yield_h15 = [0, 0.005, 0.0075, 0.009, 0.001]  # Tips_5, Tips_7, Tips_10, Tips_20, Tips_30]
     h15_years = [5, 7, 10, 20, 30]
 
     # In[4]:
@@ -61,8 +62,7 @@ def calc():
     # In[5]:
 
     Tips_yield = np.interp(Years, h15_years, Tips_yield_h15)
-    # print(Tips_yield)
-
+    print(Tips_yield)
 
     # Let's bootstrap the discount factor from the yield, assuming all the tips are traded at par, so yield = coupon
 
@@ -74,37 +74,39 @@ def calc():
     for i in range(1, Max_tips_year):
         Tips_DF[i] = (1 - Tips_yield[i] * sum_df) / (1 + Tips_yield[i])
         sum_df += Tips_DF[i]
-    # print(Tips_DF)
+    print(Tips_DF)
 
 
 
     # Let's calculate forward rate from the DF
 
     # In[7]:
-
-    Tips_fwd = np.zeros(Max_tips_year)
-    Tips_fwd[0] = Tips_yield[0]
-    for i in range(1, Max_tips_year):
-        Tips_fwd[i] = Tips_DF[i - 1] / Tips_DF[i] - 1
-    # print(Tips_fwd)
+    # foward price notused?
+    #
+    # Tips_fwd = np.zeros(Max_tips_year)
+    # Tips_fwd[0] = Tips_yield[0]
+    # for i in range(1, Max_tips_year):
+    #     Tips_fwd[i] = Tips_DF[i - 1] / Tips_DF[i] - 1
+    # # print(Tips_fwd)
 
 
     # In[20]:
 
-    worst_case_inflation = 0.03
-    annuity_investment_return = 0.0255
-    over_30yr_Tips = -0.01
+    worst_case_inflation = 0.03     #   3%
+    annuity_investment_return = 0.0255  #   2.5%
+    # not used  # over_30yr_Tips = -0.01
 
     # In[21]:
 
     mortality_rate = pd.read_csv('mortality.csv')
-
+    # print(mortality_rate)
     # Let's get user age and sex; also his/her additional saving
 
     # In[22]:
 
-    current_age = 60
-    swith_age = 90
+    current_age = int(age)
+    swith_age = 95
+
     sex = 'Male'
     inflation_saving = 0
 
@@ -115,7 +117,8 @@ def calc():
     # In[24]:
 
     age = [x for x in range(current_age + 1, swith_age + 1)]
-    # print(len(age))
+    print('age')
+    print(age)
 
 
     # In[25]:
@@ -127,7 +130,7 @@ def calc():
             total_inheritance[i] = sum(Tips_DF[i:]) * unit
         else:
             total_inheritance[i] = sum(Tips_DF[i:]) / Tips_DF[i - 1] * unit
-    # print(total_inheritance)
+    print(total_inheritance)
 
 
     # Let's put probability of death into the account
@@ -139,7 +142,7 @@ def calc():
     # In[27]:
 
     male_dying_prob = mortality_rate[mortality_rate.age > current_age]['Male'].values
-
+    print(male_dying_prob)
     # In[28]:
 
     female_dying_prob = mortality_rate[mortality_rate.age > current_age]['Female'].values

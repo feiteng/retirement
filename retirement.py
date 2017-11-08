@@ -9,7 +9,6 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
-
 @app.route('/homePage', methods=['POST'])
 def getHomePage():
     return render_template('index.html')

@@ -1,14 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Cats Everywhere email addresses</title>
-  </head>
-  <body>
-    <p>Here are all the emails we have collected:</p>
-    <ul>
-      {% for email in email_addresses %}
-      <li>{{ email }}</li>
-      {% endfor %}
-    </ul>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Retirement Plan App - Couple Calculation</title>
+
+</head>
+
+<body>
+<ul>
+  {% for inheritance_item in inheritance %}
+  <li>{{ inheritance_item }}</li>
+  {% endfor %}
+</ul>
+
+<div id="banner">
+
+  <form action="/homePage" method="post">
+    <input type="submit" value="Go Back"></input>
+  </form>
+</div>
+
+<img style='position: relative' src="/static/img/3.jpg">
+<footer class="footer">
+  <p>&copy; Rutter Associates LLC 2017</p>
+</footer>
+
+<div id="emailform">
+
+</div>
+
+</body>
 </html>

@@ -2,16 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Retirement Plan App - Personal Calculation</title>
-
+    <title>Retirement Plan App - Single Person Calculation</title>
 </head>
+<style>
+table {
+    border-collapse: collapse;
+}
 
+table, th, td {
+border: 1px solid black;
+}
+
+
+
+
+</style>
 <body>
-<ul>
-    {% for inheritance_item in inheritance %}
-    <li>{{ inheritance_item }}</li>
+<table>
+    <tr>
+        <th>Age</th>
+        <th>inheritance</th>
+        <th>payment</th>
+        <th>principal</th>
+        <th>coupon</th>
+        <th>prob_survival</th>
+        <th>prob_dying</th>
+        <th>prob_death</th>
+        <th>TIPS</th>
+        <th>annuity_payment</th>
+        <th>annuity_cost</th>
+        <th>discount</th>
+        <th>annuity_purchase</th>
+        <th>annuity_benefit</th>
+        <th>total_cost</th>
+        <th>tips_cost</th>
+        <th>annuity_cost</th>
+    </tr>
+    {% for i in range(x.end_draw[0] - x.cur_age[0]) %}
+    <tr>
+        <td>{{x.age[i]}}</td>
+        <td>{{"%.2f" % x.inheritance[i] }}</td>
+        <td>{{"%.2f" % x.payment[i]}}</td>
+        <td>{{"%.2f" % x.principal[i]}}</td>
+        <td>{{"%.2f" % x.coupon[i]}}</td>
+        <td>{{"%.2f" % x.prob_survival[i]}}</td>
+        <td>{{"%.2f" % x.prob_dying[i]}}</td>
+        <td>{{"%.2f" % x.prob_death[i]}}</td>
+        <td>{{"%.2f" % x.TIPS[i]}}</td>
+        <td>{{"%.2f" % x.annuity_payment[i]}}</td>
+        <td>{{"%.2f" % x.annuity_cost[i]}}</td>
+        <td>{{"%.2f" % x.discount[i]}}</td>
+        <td>{{"%.2f" % x.annuity_purchase[i]}}</td>
+        <td>{{"%.2f" % x.annuity_benefit[i]}}</td>
+        <td>{{"%.2f" % x.total_cost[i]}}</td>
+        <td>{{"%.2f" % x.tips_cost[i]}}</td>
+        <td>{{"%.2f" % x.annuity_cost[i]}}</td>
+    </tr>
     {% endfor %}
-</ul>
+
+</table>
 
 <div id="banner">
 

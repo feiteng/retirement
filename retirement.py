@@ -9,6 +9,7 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html')
 
+
 @app.route('/homePage', methods=['POST'])
 def getHomePage():
     return render_template('index.html')
@@ -28,8 +29,8 @@ def signUpSingle():
     gender = request.form['gender']
     amount = int(request.form['curr_amount'])
     spending = int(request.form['spending'])
-    x = calc(age, gender)#, amount, spending)
-    return render_template('calc.html', inheritance=x.inheritance)
+    x = calc(age, gender)  # , amount, spending)
+    return render_template('calc.html', x=x)
 
 
 @app.route('/couple', methods=['POST'])
@@ -42,11 +43,10 @@ def signUpCouple():
     gender = [gender1, gender2]
     amount = request.form['curr_amount']
     spending = request.form['spending']
-    x = calcJoint(age, gender)#, amount, spending)
-    return render_template('calc2.html', inheritance=x.inheritance)
+    x = calcJoint(age, gender)  # , amount, spending)
+    return render_template('calc2.html',x=x)
 
-
-def calcJoint(_current_age, _gender):##, amount, spending):
+def calcJoint(_current_age, _gender):  ##, amount, spending):
     import math
     import numpy as np
     import pandas as pd
@@ -61,7 +61,7 @@ def calcJoint(_current_age, _gender):##, amount, spending):
 
 
     # user inputs
-    c_age = list(map(int,_current_age))  # vector
+    c_age = list(map(int, _current_age))  # vector
     current_age = c_age[0]
     age_difference = c_age[0] - c_age[1]
     gender = _gender  # vector
@@ -148,7 +148,7 @@ def calcJoint(_current_age, _gender):##, amount, spending):
     joint_survival_full[i] = joint_survival_tmp[i]
 
     for i in range(1, len(f_mortality_rate)):
-        joint_survival_tmp[i] = 1 - (1 - survive0[i-1]) * (1 - survive1[i- 1])
+        joint_survival_tmp[i] = 1 - (1 - survive0[i - 1]) * (1 - survive1[i - 1])
         joint_survival_full[i] = (joint_survival_tmp[i - 1] + joint_survival_tmp[i]) / 2
 
     prob_sec_dying = np.zeros(size)
@@ -222,7 +222,8 @@ def calcJoint(_current_age, _gender):##, amount, spending):
         annuity_benefit[i] = 0 if annuity_purchase[i] == 0 else annuity_payment[i]
 
     i = 0
-    annuity_cost_scalar = pct_joint_annuity* sum(annuity_purchase) + pct_individual_annuiity * (firstPerson.annuity_cost[0]+secondPerson.annuity_cost[0])
+    annuity_cost_scalar = pct_joint_annuity * sum(annuity_purchase) + pct_individual_annuiity * (
+        firstPerson.annuity_cost[0] + secondPerson.annuity_cost[0])
     annuity_cost2[0] = annuity_cost_scalar
     tips_cost[0] = inheritance[0]
     total_cost[0] = tips_cost[0] + annuity_cost2[0]
@@ -232,7 +233,7 @@ def calcJoint(_current_age, _gender):##, amount, spending):
         annuity_cost2[i] = annuity_cost_scalar / (prob_survival[i - 1] * discount[i - 1])
         tips_cost[i] = inheritance[i]
         total_cost[i] = tips_cost[i] + annuity_cost2[i]
-        total_cost_x[i] = total_cost[i] * draw/unit_payment
+        total_cost_x[i] = total_cost[i] * draw / unit_payment
 
     TIPS_cost_scalar = inheritance[0]
     total_cost_scalar = annuity_cost_scalar + TIPS_cost_scalar
@@ -253,7 +254,9 @@ def calcJoint(_current_age, _gender):##, amount, spending):
                        'annuity_benefit': annuity_benefit,
                        'total_cost': total_cost,
                        'tips_cost': tips_cost,
-                       'annuity_cost2': annuity_cost2
+                       'annuity_cost2': annuity_cost2,
+                       'end_draw': end_draw,
+                       'cur_age': current_age
                        })
     # df.to_csv('out3.csv', header=True,
     #           columns=['age', 'inheritance', 'payment', 'principal', 'coupon', 'prob_survival', 'prob_dying',
@@ -267,9 +270,7 @@ def calcJoint(_current_age, _gender):##, amount, spending):
     return df
 
 
-
-
-def calc(_current_age, _gender):#, amount, spending):
+def calc(_current_age, _gender):  # , amount, spending):
     import math
     import numpy as np
     import pandas as pd
@@ -432,7 +433,9 @@ def calc(_current_age, _gender):#, amount, spending):
                        'annuity_benefit': annuity_benefit,
                        'total_cost': total_cost,
                        'tips_cost': tips_cost,
-                       'annuity_cost2': annuity_cost2
+                       'annuity_cost2': annuity_cost2,
+                       'end_draw': end_draw,
+                       'cur_age': current_age
                        })
     return df
     # df.to_csv('out2.csv', header=True,
